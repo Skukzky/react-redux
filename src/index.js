@@ -4,30 +4,39 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+// import redux
+import { legacy_createStore as createStore } from "redux";
+
+// import reducer
+import { initialValue, rootReducer } from "./reducers/rootReducer";
+
+// redux = useContex + useReducer
+import { Provider } from "react-redux";
+
 // Import Routes dan Route di sini
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import custom pages
 import CounterReducerContainer from "./containers/CounterReducerContainer";
 
+import CounterReduxContainer from "./containers/CounterReduxContainer";
+
+// buat store
+const store = createStore(rootReducer, initialValue);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="use-reducer" element={<CounterReducerContainer />} />
-          <Route
-            path="react-redux"
-            element={
-              <>
-                <h1>React Redux</h1>
-              </>
-            }
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="use-reducer" element={<CounterReducerContainer />} />
+            <Route path="react-redux" element={<CounterReduxContainer />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

@@ -10,9 +10,9 @@ export const rootReducer = (state, action) => {
   } else if (action.type === "decrement") {
     return { ...state, counter: state.counter - 1 };
   } else if (action.type === "incrementSpec") {
-    return { ...state, counter: state.counter + action.payload };
+    return { ...state, counter: state.counter + action.amount };
   } else if (action.type === "decrementSpec") {
-    return { ...state, counter: state.counter - action.payload };
+    return { ...state, counter: state.counter - action.amount };
   } else if (action.type === "reset") {
     return { ...state, counter: 0 };
   }
