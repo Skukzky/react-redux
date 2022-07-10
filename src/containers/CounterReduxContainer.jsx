@@ -7,14 +7,24 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 // useDispatch = adalah suatu hooks yang memperbolehkan kita memilih action apa yang ingin dilakukan
 import { useDispatch, useSelector } from "react-redux";
 
+import {
+  increment,
+  decrement,
+  reset,
+  incrementSpec,
+  decrementSpec,
+} from "../features/counter/sliceCounter";
+
+import { selectUser, selectCounter } from "../features/counter/sliceCounter";
+
 const CounterReduxContainer = () => {
   // Tambahkan state untuk men-track perubahan amount
   const [currentAmount, setCurrentAmount] = useState(50);
 
   // useSelector ini menerima sebuah fungsi dengan satu parameter "state"
   // anggap saja ini seperti "filter"
-  const username = useSelector((state) => state.user);
-  const counter = useSelector((state) => state.counter);
+  const username = useSelector(selectUser);
+  const counter = useSelector(selectCounter);
 
   // Untuk menggunakan dispatch (action) nya, kita gunakan dispatcher dari hooks useDispatch
   const dispatcher = useDispatch();
@@ -23,21 +33,15 @@ const CounterReduxContainer = () => {
     // Di sini kita akan memanggil dispatcher-nya,
     // jangan lupa untuk melemparkan aksi apa yang ingin dilakukan via
     // props "type"
-    dispatcher({
-      type: "decrement",
-    });
+    dispatcher(decrement());
   };
 
   const buttonResetOnClickHandler = () => {
-    dispatcher({
-      type: "reset",
-    });
+    dispatcher(reset());
   };
 
   const buttonIncrementOnClickHandler = () => {
-    dispatcher({
-      type: "increment",
-    });
+    dispatcher(increment());
   };
 
   const textFieldAmountOnChangeHandler = (e) => {
@@ -50,17 +54,11 @@ const CounterReduxContainer = () => {
 
   const buttonDecrementByAmountOnClickHandler = () => {
     // Kita panggil dispatcher lagi !
-    dispatcher({
-      type: "decrementSpec",
-      amount: currentAmount,
-    });
+    dispatcher(decrementSpec(currentAmount));
   };
 
   const buttonIncrementByAmountOnClickHandler = () => {
-    dispatcher({
-      type: "incrementSpec",
-      amount: currentAmount,
-    });
+    dispatcher(incrementSpec(currentAmount));
   };
 
   return (

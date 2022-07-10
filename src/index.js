@@ -3,26 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-// import redux
-import { legacy_createStore as createStore } from "redux";
-
-// import reducer
-import { initialValue, rootReducer } from "./reducers/rootReducer";
-
-// redux = useContex + useReducer
 import { Provider } from "react-redux";
-
-// Import Routes dan Route di sini
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import custom pages
 import CounterReducerContainer from "./containers/CounterReducerContainer";
-
 import CounterReduxContainer from "./containers/CounterReduxContainer";
-
-// buat store
-const store = createStore(rootReducer, initialValue);
+import { store } from "./app/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
